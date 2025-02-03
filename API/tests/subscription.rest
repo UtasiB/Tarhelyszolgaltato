@@ -1,0 +1,8 @@
+// create subscription
+### 
+POST http://localhost:3000/api/subscriptions/create
+Content-Type: application/json
+
+{
+   "date": "2021-01-01"    
+}

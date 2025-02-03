@@ -1,0 +1,21 @@
+###
+POST http://localhost:3000/api/users/register
+Content-Type: application/json
+
+{
+    "name": "Varga Jenő",
+    "email": "varga@gmail.com",
+    "password": "123456"
+}
+
+###
+// user login
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+    "email": "varga@gmail.com",
+    "password": "123456"
+}
+
+

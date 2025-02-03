@@ -1,0 +1,11 @@
+// create storage
+### 
+POST http://localhost:3000/api/storages/create
+Content-Type: application/json
+
+{
+    "name": "storage1",
+    "description": "storage1 description",
+    "price": 1000
+    
+}
