@@ -14,10 +14,10 @@ export class ApiService {
   constructor(private http: HttpClient) { }
   
   login(table: string, data: object) {
-    return this.http.post(this.server + '/login/' + table, data);
+    return this.http.post(this.server + '/api/' + table + '/login/', data);
   }
 
   registration(table: string, data: object) {
-    return this.http.post(this.server + '/reg/' + table, data);
+    return this.http.post(this.server + '/api/' + table + '/register', data);
   }
 }

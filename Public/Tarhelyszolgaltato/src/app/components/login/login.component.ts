@@ -32,31 +32,21 @@ export class LoginComponent {
     private api: ApiService,
     private messageService: MessageService,
   ) {}
-
-  invalidFields: string[] = [];
-
   user: User = {
     id: '',
     name: '',
     email: '',
-    passwd: '',
+    password: '',
     confirm: '',
     role: ''
   };
-
   login() {
     this.api.login('users', this.user).subscribe((res: any) => {
-      this.invalidFields = res.invalid;
-      if (this.invalidFields.length === 0) {
+      if (res.status(201)) {
         this.messageService.add({ severity: 'success', summary: 'OK', detail: res.message });
-        // Handle successful login here (e.g., navigate to another page)
       } else {
         this.messageService.add({ severity: 'error', summary: 'HIBA', detail: res.message });
       }
     });
-  }
-
-  isInvalid(field: string) {
-    return this.invalidFields.includes(field);
   }
 }

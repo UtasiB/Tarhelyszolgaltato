@@ -25,12 +25,11 @@ export class RegisterComponent {
     id: '',
     name: '',
     email: '',
-    passwd: '',
+    password: '',
     confirm: '',
-    role: ''
+    role: 'user'
   };
 
-  invalidFields: string[] = [];
 
   constructor(
     private api: ApiService,
@@ -39,17 +38,14 @@ export class RegisterComponent {
 
   registration() {
     this.api.registration('users', this.user).subscribe((res: any) => {
-      this.invalidFields = res.invalid;
 
-      if (this.invalidFields.length === 0) {
+      if (res.status(201)) {
         // Success message using Toast
         this.messageService.add({
           severity: 'success',
           summary: 'Registration Successful',
           detail: res.message
         });
-
-        // Clear form after successful registration
         this.resetForm();
       } else {
         // Error message using Toast
@@ -67,7 +63,7 @@ export class RegisterComponent {
       id: '',
       name: '',
       email: '',
-      passwd: '',
+      password: '',
       confirm: '',
       role: ''
     };
