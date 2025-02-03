@@ -32,8 +32,12 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
-            ],
+              "src/styles.scss",
+              "primeng/resources/themes/lara-dark-indigo/theme.css",
+              "node_modules/primeng/resources/primeng.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeflex/primeflex.css"
+            ],                       
             "scripts": []
           },
           "configurations": {

@@ -1,0 +1,35 @@
+<!-- Regisztrációs form -->
+<div class="flex justify-content-center p-3">
+    <div class="flex flex-column gap-3">
+      
+        <!-- Username input -->
+        <div class="flex flex-wrap justify-content-center align-items-center gap-2">
+            <label class="w-8rem">Username</label>
+            <input pInputText id="username" type="text" class="w-16rem" [(ngModel)]="user.name" />
+        </div>
+
+        <!-- E-mail input -->
+        <div class="flex flex-wrap justify-content-center align-items-center gap-2">
+            <label class="w-8rem">E-mail</label>
+            <input pInputText id="email" type="email" class="w-16rem" [(ngModel)]="user.email" />
+        </div>
+
+        <!-- Password input -->
+        <div class="flex flex-wrap justify-content-center align-items-center gap-2">
+            <label class="w-8rem">Password</label>
+            <input pInputText id="passwd" type="password" class="w-16rem" [(ngModel)]="user.passwd" />
+        </div>
+
+        <!-- Confirm Password input -->
+        <div class="flex flex-wrap justify-content-center align-items-center gap-2">
+            <label class="w-8rem">Confirm Password</label>
+            <input pInputText id="confirm" type="password" class="w-16rem" [(ngModel)]="user.confirm" />
+        </div>
+
+        <!-- Register Button -->
+        <p-button label="Regisztráció" icon="pi pi-user" class="w-16rem mx-auto" (click)="registration()"></p-button>
+    </div>
+</div>
+
+<!-- Toast for showing success/error messages -->
+<p-toast></p-toast>
