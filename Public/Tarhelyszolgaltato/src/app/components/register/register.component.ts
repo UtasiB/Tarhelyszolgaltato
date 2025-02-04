@@ -39,7 +39,7 @@ export class RegisterComponent {
   registration() {
     this.api.registration('users', this.user).subscribe((res: any) => {
 
-      if (res.status(201)) {
+      if (res) {
         // Success message using Toast
         this.messageService.add({
           severity: 'success',

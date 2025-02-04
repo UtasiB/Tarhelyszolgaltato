@@ -22,7 +22,7 @@ exports.login = async (req, res, next) => {
             return res.status(400).json({success: false, message: 'Hiányzó adatok!'});
         }
         const user = await userService.loginUser(email, password);
-        res.status(200).json({success: true, user: user});
+        res.status(200).json({success: true, user: user, token: user.token});
     }
     catch(err){
         next(err);
@@ -86,5 +86,3 @@ exports.getProfile = async (req, res, next) => {
         next(err);
     }
 }
-
-

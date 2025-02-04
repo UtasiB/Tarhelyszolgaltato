@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { ToastModule } from 'primeng/toast';  // PrimeNG Toast
-import { FormsModule } from '@angular/forms';  // Angular Forms
-import { MessageService } from 'primeng/api'; // PrimeNG MessageService
+import { ToastModule } from 'primeng/toast'; 
+import { FormsModule } from '@angular/forms';
+import { MessageService } from 'primeng/api'; 
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { ApiService } from '../../services/api.service';
 import { User } from '../../../interfaces/user';
@@ -18,19 +19,21 @@ import { User } from '../../../interfaces/user';
     FloatLabelModule,
     InputTextModule,
     ButtonModule,
-    ToastModule,   // Import ToastModule for toast messages
-    FormsModule,  // Import FormsModule for ngModel
+    ToastModule, 
+    FormsModule, 
     RouterModule,
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [MessageService]  // Register MessageService to show messages
+  providers: [MessageService]  
 })
 export class LoginComponent {
   constructor(
     private api: ApiService,
     private messageService: MessageService,
+    private router: Router
   ) {}
   user: User = {
     id: '',
@@ -41,12 +44,21 @@ export class LoginComponent {
     role: ''
   };
   login() {
-    this.api.login('users', this.user).subscribe((res: any) => {
-      if (res.status(201)) {
-        this.messageService.add({ severity: 'success', summary: 'OK', detail: res.message });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'HIBA', detail: res.message });
+    this.api.login('users', this.user).subscribe(
+      (res: any) => {
+        if (res && res.token) {
+          localStorage.setItem('tarhelyszolgaltato', res.token);
+          localStorage.setItem('user', JSON.stringify(res.user));
+          this.messageService.add({ severity: 'success', summary: 'OK', detail: 'Bejelentkezés sikeres!' });
+          this.router.navigate(['/storagepackages']); 
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'HIBA', detail: 'Nem sikerült a bejelentkezés!' });
+        }
+      },
+      (error) => {
+        console.error('Hiba történt:', error);
+        this.messageService.add({ severity: 'error', summary: 'HIBA', detail: 'Nem sikerült a bejelentkezés. Próbálja újra!' });
       }
-    });
-  }
+    );
+  } 
 }

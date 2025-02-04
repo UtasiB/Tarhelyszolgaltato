@@ -11,11 +11,10 @@ exports.createUser = async (username, password) => {
     return dbUser;
 
 }
-/*
+
 exports.deleteStorage = async (id) => {
-    const storage = await Storage.findByPk(id);
+    const storage = await Database.findByPk(id);
     if (!storage) throw new Error('Felhasználó nem található!');
 
     return await storage.destroy();
 }
-*/
