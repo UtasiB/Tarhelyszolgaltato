@@ -20,7 +20,7 @@ router.get('/', authMiddleware,  userController.getAllUsers);
 router.get('/:id', authMiddleware,  userController.getUserById);
 
 // get logged user profile
-router.get('/profile/:id', authMiddleware, userController.getProfile);
+router.get('/profile', authMiddleware, userController.getProfile);
 
 // update user
 router.patch('/:id', authMiddleware, userController.updateUser);

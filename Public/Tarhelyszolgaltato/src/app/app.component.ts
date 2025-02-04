@@ -18,7 +18,7 @@ export class AppComponent {
 
   items = [
     { label: 'Regisztráció', icon: 'pi pi-at', routerLink: '/register' },
-    { label: 'Bejelentkezés', icon: 'pi pi-ethereum', routerLink: '/login' }
+    { label: 'Bejelentkezés', icon: 'pi pi-sign-in', routerLink: '/login' }
   ];
 
   loggedInItems = [
@@ -41,6 +41,7 @@ export class AppComponent {
   logout() {
     localStorage.removeItem('tarhelyszolgaltato');
     localStorage.removeItem('user');
+    localStorage.removeItem('loggedUserId');
     this.isLoggedIn = false;
 
     this.router.navigate(['/login']);

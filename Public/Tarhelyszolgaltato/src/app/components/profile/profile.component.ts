@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
     ButtonModule,
     FormsModule,
     CardModule
+    
   ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
@@ -22,17 +24,9 @@ export class ProfileComponent implements OnInit {
   user: User | null = null;
   subscription: any = null;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private authService: AuthService) { }
 
   ngOnInit() {
-    this.apiService.getProfile().subscribe(
-      (res: any) => {
-        this.user = res.user;
-        this.subscription = res.subscription;
-      },
-      (error) => {
-        console.error('Error fetching profile', error);
-      }
-    );
+    this.user = this.authService.loggedUser();
   }
 }

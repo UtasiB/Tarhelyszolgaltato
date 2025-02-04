@@ -29,11 +29,6 @@ export class ApiService {
     return { headers }
   }
 
-  // api.service.ts
-  getProfile(): Observable<any> {
-    return this.http.get(`${this.server}/api/users/profile`, this.tokenHeader());
-  }
-
   getStoragePackages(): Observable<any> {
     return this.http.get(`${this.server}/api/storages`);
   }
