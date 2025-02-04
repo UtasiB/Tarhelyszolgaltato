@@ -32,3 +32,7 @@ exports.deleteStorage = async (id) => {
 
     return await storage.destroy();
 }
+
+exports.getAllStorages = async () => {
+    return await Storage.findAll();
+}

@@ -20,6 +20,8 @@ app.use('/api', routes);
 app.use(errorMiddleware);
 
 
+
+
 // ORM adatbázis szinkronizáció
 db.sync({alter: config.db.alter, force: config.db.force})
     .then(()=>{

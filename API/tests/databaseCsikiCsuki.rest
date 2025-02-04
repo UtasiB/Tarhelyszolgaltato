@@ -1,0 +1,9 @@
+//create new database
+###
+
+POST http://localhost:3000/localhost:3000/create-database
+Content-Type: application/json
+
+{
+    "dbname": "shitmán"
+}

@@ -14,7 +14,7 @@ exports.create = async (req, res, next) => {
     }
 }
 
-exports.update= async (req, res, next) => {
+exports.update = async (req, res, next) => {
     try{
         const id = req.params.id;
         const { name, price, description } = req.body;
