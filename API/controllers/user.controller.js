@@ -81,7 +81,7 @@ exports.getProfile = async (req, res, next) => {
     try{
         const id = req.user.id;
         const user = await userService.getProfile(id);
-        res.status(200).json({success: true, user: user});
+        res.status(200).json({success: true, user: user, token: req.headers.authorization.split(' ')[1]});
     }catch(err){
         next(err);
     }

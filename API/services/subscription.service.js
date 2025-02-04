@@ -21,3 +21,7 @@ exports.deleteSubscription = async (id) => {
 
     return await subscription.destroy();
 }
+
+exports.getAllSubscriptions = async () => {
+    return await Subscription.findAll();
+}
