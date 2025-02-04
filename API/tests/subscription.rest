@@ -4,5 +4,15 @@ POST http://localhost:3000/api/subscriptions/create
 Content-Type: application/json
 
 {
-   "date": "2021-01-01"    
+   "date": "2021-01-01",    
+   "storageId": "2d10be4a-13e9-4e5a-9846-7ad6ea06bb9f",
+   "userID": "0d8a3fba-b6a4-4697-998b-e8957ac7fd84"
 }
+
+
+###
+// get subscription by id
+GET http://localhost:3000/api/subscriptions/f745e7e2-3656-4b85-87b9-eefbeb8d94f5
+
+
+

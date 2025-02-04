@@ -11,7 +11,7 @@ exports.register = async (req, res, next) => {
     res.status(201).json({success: true, user: user});
    }
     catch(err){
-         next(err);
+        next(err);
     }
 }
 
@@ -82,7 +82,7 @@ exports.getProfile = async (req, res, next) => {
         if (!req.user || !req.user.id) {
             return res.status(400).json({ success: false, message: 'User ID is missing!' });
         }
-        
+
         const id = req.user.id;
        
         const user = await userService.getProfile(id);

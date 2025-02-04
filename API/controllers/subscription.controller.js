@@ -2,11 +2,11 @@ const subscriptionService = require('../services/subscription.service');
 
 exports.create = async (req, res, next) => {
    try{
-    const { date} = req.body;
-    if(!date){
+    const { date, userID, storageID} = req.body;
+    if(!date || !userID || !storageID){
         return res.status(400).json({success: false, message: 'Hiányzó adatok!'});
     }
-    const subscription = await subscriptionService.createSubscription(date);
+    const subscription = await subscriptionService.createSubscription(date, userID, storageID);
     res.status(201).json({success: true, subscription: subscription});
    }
     catch(err){
@@ -42,6 +42,27 @@ exports.delete = async (req, res, next) => {
     }
 }
 
+exports.getAllSubscriptions = async (_req, res, next) => {
+    try{
+        const subscriptions = await subscriptionService.getAllSubscriptions();
+        res.status(200).json({success: true, subscriptions: subscriptions});
+    }
+    catch(err){
+        next(err);
+    }
+}
+
+exports.getSubscriptionByUserId = async (req, res, next) => {
+    try{
+        const userID = req.params.id;
+        const subscription = await subscriptionService.getSubscriptionById(userID);
+        res.status(200).json({success: true, subscription: subscription});
+
+    }   
+    catch(err){
+        next(err);
+    }
+}
 
 
 

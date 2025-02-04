@@ -13,4 +13,10 @@ router.patch('/:id', authMiddleware, subscriptionController.update);
 // delete subscription
 router.delete('/:id', authMiddleware, subscriptionController.delete);
 
+// get all subscriptions
+router.get('/', subscriptionController.getAllSubscriptions);
+
+// get subscription by id
+router.get('/:id', subscriptionController.getSubscriptionByUserId);
+
 module.exports = router;
