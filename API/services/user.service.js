@@ -49,7 +49,13 @@ exports.deleteUser = async (id) => {
 }
 
 exports.getProfile = async (id) => {
-    return await User.findByPk(id, {
-        attributes: {exclude: ['password']}
-    });
-}
+    try {
+        const user = await User.findOne({ where: { id } });
+        if (!user) {
+            throw new Error('User not found');
+        }
+        return user;
+    } catch (err) {
+        throw err;
+    }
+};

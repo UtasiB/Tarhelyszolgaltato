@@ -79,10 +79,16 @@ exports.deleteUser = async (req, res, next) => {
 
 exports.getProfile = async (req, res, next) => {
     try{
+        if (!req.user || !req.user.id) {
+            return res.status(400).json({ success: false, message: 'User ID is missing!' });
+        }
+        
         const id = req.user.id;
+       
         const user = await userService.getProfile(id);
+        
         res.status(200).json({success: true, user: user, token: req.headers.authorization.split(' ')[1]});
-    }catch(err){
+    } catch(err){
         next(err);
     }
 }
