@@ -1,0 +1,18 @@
+<p-card *ngIf="user" header="Your Profile">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="name">Name</label>
+        <input id="name" type="text" pInputText [(ngModel)]="user.name" disabled />
+      </div>
+      <div class="p-field">
+        <label for="email">Email</label>
+        <input id="email" type="text" pInputText [(ngModel)]="user.email" disabled />
+      </div>
+      <div class="p-field" *ngIf="subscription">
+        <label for="storageName">Subscription</label>
+        <input id="storageName" type="text" pInputText [value]="subscription.storage.name" disabled />
+        <input id="storagePrice" type="text" pInputText [value]="'$' + subscription.storage.price" disabled />
+      </div>
+    </div>
+  </p-card>
+  

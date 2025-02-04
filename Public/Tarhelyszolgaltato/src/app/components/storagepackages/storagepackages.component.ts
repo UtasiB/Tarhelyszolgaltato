@@ -31,9 +31,7 @@ export class StoragePackagesComponent implements OnInit {
     this.api.getStoragePackages().subscribe(
       (response: any) => {
         if (response.success) {
-          console.log(response)
           this.storages = response.storages;
-          console.log(this.storages);
         } else {
           this.messageService.add({
             severity: 'error',
@@ -53,8 +51,6 @@ export class StoragePackagesComponent implements OnInit {
     );
   }
   
-  
-
   subscribeToPackage(storageId: string) {
     this.messageService.add({ 
       severity: 'info', 

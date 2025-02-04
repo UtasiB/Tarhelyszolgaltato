@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StoragepackagesComponent } from './storagepackages.component';
+import { StoragePackagesComponent } from './storagepackages.component';
 
 describe('StoragepackagesComponent', () => {
-  let component: StoragepackagesComponent;
-  let fixture: ComponentFixture<StoragepackagesComponent>;
+  let component: StoragePackagesComponent;
+  let fixture: ComponentFixture<StoragePackagesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StoragepackagesComponent]
+      imports: [StoragePackagesComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(StoragepackagesComponent);
+    fixture = TestBed.createComponent(StoragePackagesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

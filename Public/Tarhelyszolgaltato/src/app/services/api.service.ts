@@ -25,8 +25,13 @@ export class ApiService {
     const token = this.getToken();
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
-    });
+    }); 
     return { headers }
+  }
+
+  // api.service.ts
+  getProfile(): Observable<any> {
+    return this.http.get(`${this.server}/api/users/profile`, this.tokenHeader());
   }
 
   getStoragePackages(): Observable<any> {
