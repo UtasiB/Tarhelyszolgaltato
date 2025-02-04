@@ -40,6 +40,17 @@ exports.delete = async (req, res, next) => {
     }
 }
 
+exports.getAllStorages = async (_req, res, next) => {
+    try{
+        const storages = await storageService.getAllStorages();
+        res.status(200).json({success: true, storages: storages});
+    }
+    catch(err){
+        next(err);
+    }
+}
+
+
 
 
 
