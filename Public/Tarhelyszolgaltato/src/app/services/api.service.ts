@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { StoragePackage } from '../../interfaces/storage-package';
 import { Observable } from 'rxjs';
 
-
 @Injectable({
-  providedIn: 'root'  // Ensures that ApiService is a singleton and provided globally
+  providedIn: 'root'
 })
 export class ApiService { 
 
@@ -47,8 +47,15 @@ export class ApiService {
     return this.http.get(`${this.server}/api/subscriptions/${userId}`, this.tokenHeader());
   }
 
-  // Tároló adatainak lekérése a storageID alapján
   getStorageById(storageId: string): Observable<any> {
     return this.http.get(`${this.server}/api/storages/${storageId}`, this.tokenHeader());
+  }
+
+  createStorage(storage: StoragePackage): Observable<any> {
+    return this.http.post(`${this.server}/api/storages/create`, storage, this.tokenHeader());
+  }
+  
+  deleteStorage(storageId: string): Observable<any> {
+    return this.http.delete(`${this.server}/api/storages/${storageId}`, this.tokenHeader());
   }
 }
