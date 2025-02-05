@@ -7,7 +7,11 @@ const config = require('./config/config');
 const db = require('./config/database');
 const routes = require('./routers/index');
 const errorMiddleware = require('./middlewares/error.middleware');
-
+const nodemailer = require('nodemailer');
+const path = require('path');
+const fs = require('fs');
+const ejs = require('ejs');
+const transporter = require('./config/nodemailer');
 
 const app = express();
 
@@ -19,10 +23,16 @@ app.use(express.urlencoded({extended: true}));
 app.use('/api', routes);
 app.use(errorMiddleware);
 
+
+
+
 const generatePassword = () => {
     return Math.random().toString(36).slice(-8); // Example password generator
 };
 const password = generatePassword();
+
+
+// create database
 app.post('/api/databases/create-database', (req, res, next) => {
     try{
         const { dbname } = req.body;
@@ -45,7 +55,8 @@ app.post('/api/databases/create-database', (req, res, next) => {
    
 });
 
-app.post('/api/databases/create-user', (req, res, next) => {
+// create user for database
+app.post('/api/databases/create-user', async (req, res, next) => {
     try{
         const { username} = req.body;
         if (!username) {
@@ -62,9 +73,25 @@ app.post('/api/databases/create-user', (req, res, next) => {
     catch(err){
         next(err);
     }
+   module.exports = { password };
+
    
+    // send mail 
+    const info = await transporter.sendMail({
+        from: "smtp.gmail.com", // sender address
+        to: `${transporter.auth.user}`, // list of receivers
+        subject: "Password", // Subject line
+        text: `Your pasword for your database is: ${password} `, // plain text body
+        html: `<b>Your password for your database is: ${password} </b>`, // html body
+    });
+
+    res.status(200).json({ message: 'Email sent!', data: info });
 });
 
+
+
+
+// grant priviliges to user
 app.post('/api/databases/grant-privileges', (req, res, next) => {
     try{
 

@@ -1,4 +1,5 @@
 const userService = require('../services/user.service');
+const Email = "";
 
 exports.register = async (req, res, next) => {
    try{
@@ -24,13 +25,15 @@ exports.login = async (req, res, next) => {
         const user = await userService.loginUser(email, password);
         console.log(user)
         res.status(200).json({success: true, user: user, token: user.token});
-        
+        Email = email;
+       
     }
     catch(err){
         next(err);
     }
 }
-
+module.exports = { Email }
+  
 exports.getAllUsers = async (_req, res, next) => {
     try{
         const users = await userService.getAllUsers();
