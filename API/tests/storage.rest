@@ -13,3 +13,8 @@ Content-Type: application/json
 // get all storages
 ###
 GET http://localhost:3000/api/storages
+
+
+//delete storage
+###
+DELETE http://localhost:3000/api/storages/a1e20cb7-9f3b-45fc-9845-b7fd54d23a6f

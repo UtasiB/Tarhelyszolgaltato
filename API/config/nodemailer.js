@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const { password } = require('../server');
+const { Password } = require('../server');
 const { Email } = require('../controllers/user.controller');
 
 // NODEMAILER CONFIG
@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
     secure: true,
     auth: {
       user: Email,
-      pass: password
+      pass: Password
     },
 });
 

@@ -11,7 +11,7 @@ router.post('/create', storageController.create);
 router.patch('/:id', authMiddleware, storageController.update);
 
 // delete storage
-router.delete('/:id', authMiddleware, storageController.delete);
+router.delete('/:id',  storageController.delete);
 
 // get all storages
 router.get('/', storageController.getAllStorages);

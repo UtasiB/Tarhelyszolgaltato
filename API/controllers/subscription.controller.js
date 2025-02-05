@@ -63,7 +63,3 @@ exports.getSubscriptionByUserId = async (req, res, next) => {
         next(err);
     }
 }
-
-
-
-

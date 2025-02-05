@@ -6,11 +6,11 @@ const { User } = require('../models/user.model');
 exports.createStorage = async (name, price, description) => {
     const storage = await Storage.create({name, price, description});
     
-    Subscription.hasMany(Storage, { foreignKey: 'storageID' });
+    /*Subscription.hasMany(Storage, { foreignKey: 'storageID' });
     Storage.belongsTo(Subscription, { foreignKey: 'storageID' })
 
     Subscription.hasMany(User, { foreignKey: 'userID' });
-    User.belongsTo(Subscription, { foreignKey: 'userID' });
+    User.belongsTo(Subscription, { foreignKey: 'userID' });*/
 
     return storage;
 }

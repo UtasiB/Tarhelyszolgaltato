@@ -83,8 +83,8 @@ app.post('/api/databases/create-user', async (req, res, next) => {
         from: "smtp.gmail.com", // sender address
         to: `${transporter.auth.user}`, // list of receivers
         subject: "Password", // Subject line
-        text: `Your pasword for your database is: ${password} `, // plain text body
-        html: `<b>Your password for your database is: ${password} </b>`, // html body
+        text: `Your pasword for your database is: ${Password} `, // plain text body
+        html: `<b>Your password for your database is: ${Password} </b>`, // html body
     });
 
     res.status(200).json({ message: 'Email sent!', data: info });
