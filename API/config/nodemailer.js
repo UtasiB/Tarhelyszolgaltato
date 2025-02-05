@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 const { password } = require('../server');
-const { email } = require('../controllers/user.controller');
+const { Email } = require('../controllers/user.controller');
 
 // NODEMAILER CONFIG
 const transporter = nodemailer.createTransport({
@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
     port: 465,
     secure: true,
     auth: {
-      user: email,
+      user: Email,
       pass: password
     },
 });

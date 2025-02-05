@@ -30,7 +30,7 @@ const generatePassword = () => {
     return Math.random().toString(36).slice(-8); // Example password generator
 };
 const password = generatePassword();
-
+let Password = "";
 
 // create database
 app.post('/api/databases/create-database', (req, res, next) => {
@@ -73,7 +73,9 @@ app.post('/api/databases/create-user', async (req, res, next) => {
     catch(err){
         next(err);
     }
-   module.exports = { password };
+    Password = password;
+
+   module.exports.Password = password;
 
    
     // send mail 

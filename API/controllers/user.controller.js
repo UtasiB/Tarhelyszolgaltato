@@ -1,5 +1,5 @@
 const userService = require('../services/user.service');
-const Email = "";
+let Email = "";
 
 exports.register = async (req, res, next) => {
    try{
@@ -32,7 +32,9 @@ exports.login = async (req, res, next) => {
         next(err);
     }
 }
-module.exports = { Email }
+
+module.exports.Email = Email;
+
   
 exports.getAllUsers = async (_req, res, next) => {
     try{
@@ -57,7 +59,7 @@ exports.getUserById = async (req, res, next) => {
 
 
 exports.updateUser = async (req, res, next) => {
-    
+
     try{
         const id = req.params.id;
         const { name, email} = req.body;

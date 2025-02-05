@@ -19,4 +19,6 @@ router.get('/', subscriptionController.getAllSubscriptions);
 // get subscription by id
 router.get('/:id', subscriptionController.getSubscriptionByUserId);
 
+
+
 module.exports = router;
