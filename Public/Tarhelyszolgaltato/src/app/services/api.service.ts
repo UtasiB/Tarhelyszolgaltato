@@ -12,6 +12,9 @@ export class ApiService {
   private server = environment.serverUrl;
   public tokenName = environment.tokenName;
 
+  getUsers(): Observable<any> {
+    return this.http.get<any>(`${this.server}/api/users`, this.tokenHeader());
+  }
 
   getTokenName(): string{
     return this.tokenName;
