@@ -50,6 +50,17 @@ exports.getAllStorages = async (_req, res, next) => {
     }
 }
 
+exports.getStorageById = async (req, res, next) => {
+    try{
+        const id = req.params.id;
+        const storage = await storageService.getStorageById(id);
+        res.status(200).json({success: true, storage: storage});
+    }
+    catch(err){
+        next(err);
+    }
+}
+
 
 
 

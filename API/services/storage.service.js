@@ -36,3 +36,7 @@ exports.deleteStorage = async (id) => {
 exports.getAllStorages = async () => {
     return await Storage.findAll();
 }
+
+exports.getStorageById = async (id) => {
+    return await Storage.findByPk(id);
+}

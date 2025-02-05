@@ -30,7 +30,7 @@ exports.getSubscriptionById = async (userID) => {
     if(!userID){
         throw new Error('Hiányzó azonosító!');
     }
-    return await Subscription.findOne({where: {userID: userID}});
+    return await Subscription.findAll({where: {userID: userID}});
     
 }
 
