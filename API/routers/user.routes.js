@@ -28,4 +28,7 @@ router.patch('/:id', authMiddleware, userController.updateUser);
 // delete user
 router.delete('/:id', authMiddleware, userController.deleteUser);
 
+// update user domain
+router.patch('/:id', authMiddleware, userController.updateDomain);
+
 module.exports = router;

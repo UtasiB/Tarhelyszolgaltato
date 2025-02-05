@@ -57,13 +57,30 @@ exports.getUserById = async (req, res, next) => {
 
 
 exports.updateUser = async (req, res, next) => {
+    
     try{
         const id = req.params.id;
-        const { name, email, phone, address } = req.body;
+        const { name, email} = req.body;
         if(!name || !email){
             return res.status(400).json({success: false, message: 'Hiányzó adatok!'});
         }
-        const user = await userService.updateUser(id, name, email, phone, address);
+        const user = await userService.updateUser(id, name, email);
+        res.status(200).json({success: true, user: user});
+    }
+    catch(err){
+        next(err);
+    }
+
+}
+
+exports.updateDomain = async (req, res, next) => {
+    try{
+        const id = req.params.id;
+        const { domain } = req.body;
+        if(!domain){
+            return res.status(400).json({success: false, message: 'Hiányzó adatok!'});
+        }
+        const user = await userService.updateDomain(id, domain);
         res.status(200).json({success: true, user: user});
     }
     catch(err){

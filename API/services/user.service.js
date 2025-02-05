@@ -13,7 +13,7 @@ exports.loginUser = async (email, password) => {
     if (!user) throw new Error('Nem regisztrált felhasználó!');
     if (! await bcrypt.compare(password, user.password)) throw new Error('Hibás jelszó!');
 
-    const token = generateToken({ id: user.id, name: user.name, email: user.email});
+    const token = generateToken({ id: user.id, name: user.name, email: user.email, role : user.role});
 
     return { token }; 
 }
@@ -30,13 +30,12 @@ exports.getUserById = async (id) => {
     });
 }
 
-exports.updateUser = async (id, name, email, domain) => {
+exports.updateUser = async (id, name, email) => {
     const user = await User.findByPk(id);
     if (!user) throw new Error('Felhasználó nem található!');
 
     user.name = name;
     user.email = email;
-    user.domain = domain;
 
     return await user.save();
 }
@@ -58,4 +57,13 @@ exports.getProfile = async (id) => {
     } catch (err) {
         throw err;
     }
+};
+
+exports.updateDomain = async (id, domain) => {
+    const user = await User.findByPk(id);
+    if (!user) throw new Error('Felhasználó nem található!');
+
+    user.domain = domain;
+
+    return await user.save();
 };
