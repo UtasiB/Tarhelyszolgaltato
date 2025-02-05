@@ -1,28 +1,18 @@
-<!-- Belépési form -->
 <div class="flex justify-content-center p-3">
     <div class="flex flex-column gap-3">
       
-        <!-- Email input -->
         <div class="flex flex-wrap justify-content-center align-items-center gap-2">
             <label class="w-8rem">E-mail cím</label>
             <input pInputText id="email" type="email" class="w-16rem" [(ngModel)]="user.email"/>
         </div>
 
-        <!-- Password input -->
         <div class="flex flex-wrap justify-content-center align-items-center gap-2">
             <label class="w-8rem">Jelszó</label>
             <input pInputText id="passwd" type="password" class="w-16rem" [(ngModel)]="user.password"/>
         </div>
 
-        <!-- Elfelejtett jelszó link -->
-        <div class="mb-3">
-            <a routerLink="/lostpass" class="link">Elfelejtettem a jelszavamat...</a>
-        </div>
-
-        <!-- Login Button -->
         <p-button label="Belépés" icon="pi pi-user" class="w-16rem mx-auto" (click)="login()"></p-button>
     </div>
 </div>
 
-<!-- Toast for showing success/error messages -->
 <p-toast></p-toast>

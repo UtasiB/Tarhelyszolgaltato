@@ -23,14 +23,14 @@ export class AuthService {
 
   login(token: string, user: any) {
     localStorage.setItem(this.tokenName, token);
-    localStorage.setItem('user', JSON.stringify(user)); // A user adatokat is elmentjük
-    this.isLoggedInSubject.next(true); // Frissítjük a bejelentkezési állapotot
+    localStorage.setItem('user', JSON.stringify(user));
+    this.isLoggedInSubject.next(true);
   }
 
   logout() {
     localStorage.removeItem(this.tokenName);
     localStorage.removeItem('user');
-    this.isLoggedInSubject.next(false); // Frissítjük a bejelentkezési állapotot
+    this.isLoggedInSubject.next(false);
   }
 
   loggedUser() {
