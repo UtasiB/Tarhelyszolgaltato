@@ -22,7 +22,7 @@ app.use(errorMiddleware);
 const generatePassword = () => {
     return Math.random().toString(36).slice(-8); // Example password generator
 };
-
+const password = generatePassword();
 app.post('/api/databases/create-database', (req, res, next) => {
     try{
         const { dbname } = req.body;
@@ -51,7 +51,6 @@ app.post('/api/databases/create-user', (req, res, next) => {
         if (!username) {
             return res.status(400).json({ message: 'Username is required!' });
         }
-        const password = generatePassword();
         const sql = `CREATE USER '${username}'@'localhost' IDENTIFIED BY '${password}'`;
         db.query(sql, (err, results) => {
             if (err) {

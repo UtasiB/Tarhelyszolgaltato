@@ -16,4 +16,7 @@ router.delete('/:id', authMiddleware, storageController.delete);
 // get all storages
 router.get('/', storageController.getAllStorages);
 
+// get storage by id
+router.get('/:id', storageController.getStorageById);
+
 module.exports = router;
