@@ -1,37 +1,41 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable, retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-
 export class AuthService {
-
-  constructor() { }
-
   private tokenName = environment.tokenName;
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  private isLoggedIn = new BehaviorSubject<boolean>(this.hasToken());
-  isLoggedIn$: Observable<boolean> = this.isLoggedIn.asObservable();
+  constructor() {}
 
-  private hasToken():boolean{
-    return !!localStorage.getItem(this.tokenName);
-  }
-
-  login(token:string){
-    localStorage.setItem(environment.tokenName, token);
-    this.isLoggedIn.next(true);
-  }
-
-  logout(){
-    localStorage.removeItem(environment.tokenName);
-    this.isLoggedIn.next(false);
-  }
-
-  loggedUser(){
+  private hasToken(): boolean {
     const token = localStorage.getItem(this.tokenName);
-    if (token){
+    return !!token;
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenName);
+  }
+
+  login(token: string, user: any) {
+    localStorage.setItem(this.tokenName, token);
+    localStorage.setItem('user', JSON.stringify(user)); // A user adatokat is elmentjük
+    this.isLoggedInSubject.next(true); // Frissítjük a bejelentkezési állapotot
+  }
+
+  logout() {
+    localStorage.removeItem(this.tokenName);
+    localStorage.removeItem('user');
+    this.isLoggedInSubject.next(false); // Frissítjük a bejelentkezési állapotot
+  }
+
+  loggedUser() {
+    const token = localStorage.getItem(this.tokenName);
+    if (token) {
       const payload = token.split('.')[1];
       const decodedPayload = atob(payload);
       const decodedUTF8Payload = new TextDecoder('utf-8').decode(
@@ -42,12 +46,8 @@ export class AuthService {
     return null;
   }
 
-  isLoggedUser():boolean{
-    return this.isLoggedIn.value;
-  }
-
-  isAdmin():boolean{
+  isAdmin(): boolean {
     const user = this.loggedUser();
-    return user.role === 'admin';
+    return user ? user.role === 'admin' : false;
   }
 }

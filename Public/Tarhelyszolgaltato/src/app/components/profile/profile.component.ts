@@ -23,10 +23,29 @@ import { AuthService } from '../../services/auth.service';
 export class ProfileComponent implements OnInit {
   user: User | null = null;
   subscription: any = null;
+  storage: any = null;
 
   constructor(private apiService: ApiService, private authService: AuthService) { }
 
   ngOnInit() {
     this.user = this.authService.loggedUser();
+    if (this.user) {
+      this.apiService.getSubscriptionByUserId(this.user.id).subscribe(
+        (response) => {
+          this.subscription = response.subscription[0];
+            this.apiService.getStorageById(this.subscription.storageID).subscribe(
+              (storageResponse) => {
+                this.storage = storageResponse.storage;
+              },
+              (error) => {
+                console.error('Error fetching storage data:', error);
+              }
+            );
+        },
+        (error) => {
+          console.error('Error fetching subscription data:', error);
+        }
+      );
+    }
   }
 }

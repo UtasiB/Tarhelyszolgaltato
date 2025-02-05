@@ -42,4 +42,13 @@ export class ApiService {
   registration(table: string, data: object) {
     return this.http.post(this.server + '/api/' + table + '/register', data);
   }
+
+  getSubscriptionByUserId(userId: string): Observable<any> {
+    return this.http.get(`${this.server}/api/subscriptions/${userId}`, this.tokenHeader());
+  }
+
+  // Tároló adatainak lekérése a storageID alapján
+  getStorageById(storageId: string): Observable<any> {
+    return this.http.get(`${this.server}/api/storages/${storageId}`, this.tokenHeader());
+  }
 }

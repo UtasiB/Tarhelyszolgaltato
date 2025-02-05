@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
+import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service';
 import { User } from '../../../interfaces/user';
 
@@ -30,12 +31,7 @@ import { User } from '../../../interfaces/user';
   providers: [MessageService]  
 })
 export class LoginComponent {
-  constructor(
-    private api: ApiService,
-    private messageService: MessageService,
-    private router: Router
-  ) {}
-  user: User = {
+  user: any = {
     id: '',
     name: '',
     email: '',
@@ -43,12 +39,19 @@ export class LoginComponent {
     confirm: '',
     role: ''
   };
+
+  constructor(
+    private api: ApiService,
+    private messageService: MessageService,
+    private router: Router,
+    private authService: AuthService 
+  ) {}
+
   login() {
     this.api.login('users', this.user).subscribe(
       (res: any) => {
         if (res && res.token) {
-          localStorage.setItem('tarhelyszolgaltato', res.token);
-          localStorage.setItem('user', JSON.stringify(res.user));
+          this.authService.login(res.token, res.user); // Bejelentkezés az AuthService-ben
           this.messageService.add({ severity: 'success', summary: 'OK', detail: 'Bejelentkezés sikeres!' });
           this.router.navigate(['/storagepackages']); 
         } else {
@@ -60,5 +63,5 @@ export class LoginComponent {
         this.messageService.add({ severity: 'error', summary: 'HIBA', detail: 'Nem sikerült a bejelentkezés. Próbálja újra!' });
       }
     );
-  } 
+  }
 }
