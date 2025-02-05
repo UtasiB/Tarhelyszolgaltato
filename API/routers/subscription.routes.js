@@ -16,6 +16,8 @@ router.delete('/:id', authMiddleware, subscriptionController.delete);
 // get all subscriptions
 router.get('/', subscriptionController.getAllSubscriptions);
 
+
+
 // get subscription by id
 router.get('/:id', subscriptionController.getSubscriptionByUserId);
 

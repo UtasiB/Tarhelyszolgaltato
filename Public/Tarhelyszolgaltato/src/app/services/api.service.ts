@@ -58,4 +58,22 @@ export class ApiService {
   deleteStorage(storageId: string): Observable<any> {
     return this.http.delete(`${this.server}/api/storages/${storageId}`, this.tokenHeader());
   }
+
+  createSubscription(data: object): Observable<any> {
+    return this.http.post(`${this.server}/api/subscriptions/create`, data,  this.tokenHeader());
+  }
+
+  createDatabase(data: object): Observable<any> {
+    return this.http.post(`${this.server}/api/databases/create-database`, data, this.tokenHeader());
+  }
+
+  createUser(data: object): Observable<any> {
+    return this.http.post(`${this.server}/api/databases/create-user`, data, this.tokenHeader());
+  }
+
+  updateDomain(userId: string, data: object): Observable<any> {
+    return this.http.patch(`${this.server}/api/users/domain/${userId}`, data, this.tokenHeader());
+  }
+
+
 }

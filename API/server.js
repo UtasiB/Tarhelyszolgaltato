@@ -79,7 +79,7 @@ app.post('/api/databases/create-user', async (req, res, next) => {
 
    
     // send mail 
-    const info = await transporter.sendMail({
+   /* const info = await transpor   ter.sendMail({
         from: "smtp.gmail.com", // sender address
         to: `${transporter.auth.user}`, // list of receivers
         subject: "Password", // Subject line
@@ -88,6 +88,7 @@ app.post('/api/databases/create-user', async (req, res, next) => {
     });
 
     res.status(200).json({ message: 'Email sent!', data: info });
+    */
 });
 
 
