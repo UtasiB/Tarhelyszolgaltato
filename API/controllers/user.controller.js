@@ -1,5 +1,5 @@
 const userService = require('../services/user.service');
-let Email = "";
+
 
 exports.register = async (req, res, next) => {
    try{
@@ -25,9 +25,6 @@ exports.login = async (req, res, next) => {
         const user = await userService.loginUser(email, password);
         console.log(user)
         res.status(200).json({success: true, user: user, token: user.token});
-        Email = email;
-        module.exports.Email = Email;
-      
        
     }
     catch(err){

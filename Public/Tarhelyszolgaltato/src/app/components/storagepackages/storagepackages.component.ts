@@ -153,6 +153,7 @@ export class StoragePackagesComponent implements OnInit {
 
     const user_data = {
       username: this.user.name,
+      email: this.user.email,
     };
 
     this.api.createUser(user_data).subscribe(
@@ -171,28 +172,48 @@ export class StoragePackagesComponent implements OnInit {
           });
         }
       },
-      (error) => {
+     /* (error) => {
         console.error('Hiba történt a felhasználó létrehozás során', error);
         this.messageService.add({
           severity: 'error',
           summary: 'Hiba',
           detail: 'Hiba történt a felhasználó létrehozás során.'
         });
-      }
+      }*/
+
     );
 
+    const privileges_data = {
+      dbname: this.user.name + '_db',
+      username: this.user.name,
+      privileges: 'SELECT',
+    };
     
-
-
-
-    
-
-    
-
-
-    
-
-
+    this.api.grantPrivileges(privileges_data).subscribe(
+      (response: any) => {
+        if (response.success) {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Sikeres jogosultságok hozzáadása',
+            detail: 'Sikeresen hozzáadtuk a jogosultságokat.'
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Hiba',
+            detail: 'Nem sikerült hozzáadni a jogosultságokat.'
+          });
+        }
+      },
+      (error) => {
+        console.error('Hiba történt a jogosultságok hozzáadása során', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Hiba',
+          detail: 'Hiba történt a jogosultságok hozzáadása során.'
+        });
+      }
+    );
 
   }
   

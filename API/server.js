@@ -38,8 +38,8 @@ const transporter = nodemailer.createTransport({
     port: 465,
     secure: true,
     auth: {
-      user: Email,
-      pass: Password
+      user: 'szabiszaxi@gmail.com',
+      pass: 'nper ztkn fnwf qsvv'
     },
 });
 
@@ -69,9 +69,11 @@ app.post('/api/databases/create-database', (req, res, next) => {
 
 // create user for database
 app.post('/api/databases/create-user', async (req, res, next) => {
-    
+    let Email = "";
     try{
-        const { username} = req.body;
+        const { username, email} = req.body;
+        Email = email;
+        console.log(email);
         if (!username) {
             return res.status(400).json({ message: 'Username is required!' });
         }
@@ -86,20 +88,16 @@ app.post('/api/databases/create-user', async (req, res, next) => {
     catch(err){
         next(err);
     }
-    Password = password;
-    console.log(transporter.auth.user);
-    console.log(Password);
-   module.exports.Password = Password;
 
-   
+
     // send mail 
     const info = await transporter.sendMail({
         from: "smtp.gmail.com", // sender address
         // list of receivers
-        to: `${transporter.auth.user}`,
+        to: `${Email}`, // list of receivers
         subject: "Password", // Subject line
-        text: `Your pasword for your database is: ${transporter.auth.pass} `, // plain text body
-        html: `<b>Your password for your database is: ${transporter.auth.pass} </b>`, // html body
+        text: `Your pasword for your database is: ${password}`, // plain text body
+        html: `<b>Your password for your database is: ${password} </b>`, // html body
     });
 
     res.status(200).json({ message: 'Email sent!', data: info });
@@ -110,25 +108,25 @@ app.post('/api/databases/create-user', async (req, res, next) => {
 
 
 // grant priviliges to user
-app.post('/api/databases/grant-privileges', (req, res, next) => {
-    try{
-
-    const { username, dbname, privileges } = req.body;
-    if (!username || !dbname || !privileges) {
-        return res.status(400).json({ message: 'Missing data!' });
+app.post('/api/databases/grant-privileges', (req, res) => {
+    const {username, dbname, privileges} = req.body;
+    if (!username || !dbname || !privileges){
+        return res.status(400).json({message: 'Missing data!'});
     }
-    const sql = `USE ${dbname}; GRANT ${privileges} ON \`${dbname}\`.* TO '${username}'@'localhost'`;
-    db.query(sql, (err, results) => {
-        if (err) {
-            return res.status(500).json({ message: err });
-        }
-        res.status(200).json({ message: `Granted ${privileges} to ${username} on ${dbname}!`, data: results });
-    });
-    }
-    catch(err){
-        next(err);
-    }
+    const useDbSql = `USE ${dbname}`;
+    const grantSql = `GRANT ${privileges} ON \`${dbname}\`.* TO '${username}'@'localhost'`;
     
+    db.query(useDbSql, (err) => {
+        if (err) {
+            return res.status(500).json({message: err});
+        }
+        db.query(grantSql, (err, results) => {
+            if (err){
+                return res.status(500).json({message: err});
+            }
+            res.status(200).json({message: `Granted ${privileges} to ${username} on ${dbname}!`, data: results});
+        });
+    });
 });
 
 // ORM adatbázis szinkronizáció
