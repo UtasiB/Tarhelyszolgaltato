@@ -165,7 +165,7 @@ export class StoragePackagesComponent implements OnInit {
             detail: 'Sikeresen létrehoztuk a felhasználódat.'
           });
         }
-      },
+      }
      /* (error) => {
         console.error('Hiba történt a felhasználó létrehozás során', error);
         this.messageService.add({

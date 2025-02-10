@@ -11,9 +11,8 @@ const nodemailer = require('nodemailer');
 const path = require('path');
 const fs = require('fs');
 const ejs = require('ejs');
+var mysql      = require('mysql');
 //const transporter = require('./config/nodemailer');
-const { Email } = require('./controllers/user.controller');
-
 const app = express();
 
 app.use(cors());
@@ -25,6 +24,12 @@ app.use('/api', routes);
 app.use(errorMiddleware);
 
 
+var connection = mysql.createConnection({
+  host     : process.env.DB_HOST,
+  user     : process.env.DB_USER,
+  password : "",
+  multipleStatements: true
+});
 
 
 const generatePassword = () => {
@@ -57,7 +62,7 @@ app.post('/api/databases/create-database', (req, res, next) => {
             if (err) {
                 return res.status(500).json({ message: err });
             }
-            res.status(200).json({ message: 'Database created successfully!', data: results });
+            res.status(200).json({ message: 'Database created successfully!', data: results,  success: true });
         });
     }
     catch(err){
@@ -82,7 +87,7 @@ app.post('/api/databases/create-user', async (req, res, next) => {
             if (err) {
                 return res.status(500).json({ message: err });
             }
-            res.status(200).json({ message: 'User created successfully!', data: results, password });
+            res.status(200).json({ message: 'User created successfully!', data: results, password,  success: true });
         });
     }
     catch(err){
@@ -109,24 +114,29 @@ app.post('/api/databases/create-user', async (req, res, next) => {
 
 // grant priviliges to user
 app.post('/api/databases/grant-privileges', (req, res) => {
+    console.log("bejut");
     const {username, dbname, privileges} = req.body;
     if (!username || !dbname || !privileges){
         return res.status(400).json({message: 'Missing data!'});
     }
     const useDbSql = `USE ${dbname}`;
+    console.log(useDbSql);
     const grantSql = `GRANT ${privileges} ON \`${dbname}\`.* TO '${username}'@'localhost'`;
-    
-    db.query(useDbSql, (err) => {
+    console.log(grantSql);
+    connection.query(useDbSql, (err) => {
+        console.log("use");
         if (err) {
             return res.status(500).json({message: err});
         }
-        db.query(grantSql, (err, results) => {
+        connection.query(grantSql, (err, results) => {
+            console.log("grant");
             if (err){
                 return res.status(500).json({message: err});
             }
-            res.status(200).json({message: `Granted ${privileges} to ${username} on ${dbname}!`, data: results});
+            res.status(200).json({message: `Granted ${privileges} to ${username} on ${dbname}!`, data: results, success: true});
         });
-    });
+    })
+    
 });
 
 // ORM adatbázis szinkronizáció
