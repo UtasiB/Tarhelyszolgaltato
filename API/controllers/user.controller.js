@@ -26,14 +26,17 @@ exports.login = async (req, res, next) => {
         console.log(user)
         res.status(200).json({success: true, user: user, token: user.token});
         Email = email;
+        module.exports.Email = Email;
+      
        
     }
     catch(err){
         next(err);
     }
+    
 }
 
-module.exports.Email = Email;
+
 
   
 exports.getAllUsers = async (_req, res, next) => {

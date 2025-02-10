@@ -11,7 +11,8 @@ const nodemailer = require('nodemailer');
 const path = require('path');
 const fs = require('fs');
 const ejs = require('ejs');
-const transporter = require('./config/nodemailer');
+//const transporter = require('./config/nodemailer');
+const { Email } = require('./controllers/user.controller');
 
 const app = express();
 
@@ -31,6 +32,16 @@ const generatePassword = () => {
 };
 const password = generatePassword();
 let Password = "";
+
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: Email,
+      pass: Password
+    },
+});
 
 // create database
 app.post('/api/databases/create-database', (req, res, next) => {
@@ -52,11 +63,13 @@ app.post('/api/databases/create-database', (req, res, next) => {
     catch(err){
         next(err);
     }
+    
    
 });
 
 // create user for database
 app.post('/api/databases/create-user', async (req, res, next) => {
+    
     try{
         const { username} = req.body;
         if (!username) {
@@ -74,21 +87,23 @@ app.post('/api/databases/create-user', async (req, res, next) => {
         next(err);
     }
     Password = password;
-
-   module.exports.Password = password;
+    console.log(transporter.auth.user);
+    console.log(Password);
+   module.exports.Password = Password;
 
    
     // send mail 
-   /* const info = await transpor   ter.sendMail({
+    const info = await transporter.sendMail({
         from: "smtp.gmail.com", // sender address
-        to: `${transporter.auth.user}`, // list of receivers
+        // list of receivers
+        to: `${transporter.auth.user}`,
         subject: "Password", // Subject line
-        text: `Your pasword for your database is: ${Password} `, // plain text body
-        html: `<b>Your password for your database is: ${Password} </b>`, // html body
+        text: `Your pasword for your database is: ${transporter.auth.pass} `, // plain text body
+        html: `<b>Your password for your database is: ${transporter.auth.pass} </b>`, // html body
     });
 
     res.status(200).json({ message: 'Email sent!', data: info });
-    */
+    
 });
 
 

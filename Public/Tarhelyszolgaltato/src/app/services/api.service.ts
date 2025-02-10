@@ -78,5 +78,9 @@ export class ApiService {
     return this.http.patch(`${this.server}/api/users/domain/${userId}`, data, this.tokenHeader());
   }
 
+  grantPrivileges(data: object): Observable<any> {
+    return this.http.post(`${this.server}/api/databases/grant-privileges`, data, this.tokenHeader());
+  }
+
 
 }
