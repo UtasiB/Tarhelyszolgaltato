@@ -164,12 +164,6 @@ export class StoragePackagesComponent implements OnInit {
             summary: 'Sikeres felhasználó létrehozás',
             detail: 'Sikeresen létrehoztuk a felhasználódat.'
           });
-        } else {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Hiba',
-            detail: 'Nem sikerült létrehozni a felhasználót.'
-          });
         }
       },
      /* (error) => {
@@ -180,7 +174,6 @@ export class StoragePackagesComponent implements OnInit {
           detail: 'Hiba történt a felhasználó létrehozás során.'
         });
       }*/
-
     );
 
     const privileges_data = {
