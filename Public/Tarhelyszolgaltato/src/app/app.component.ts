@@ -31,6 +31,7 @@ export class AppComponent {
   ];
 
   adminItems = [
+    { label: 'Tárhely Csomagok', icon: 'pi pi-database', routerLink: '/storagepackages' },  
     { label: 'Csomagok kezelése', icon: 'pi pi-cog', routerLink: '/storage-management' },
     { label: 'Felhasználók kezelése', icon: 'pi pi-users', routerLink: '/user-managment' },
     { label: 'Kijelentkezés', icon: 'pi pi-sign-out', command: () => this.logout() }
